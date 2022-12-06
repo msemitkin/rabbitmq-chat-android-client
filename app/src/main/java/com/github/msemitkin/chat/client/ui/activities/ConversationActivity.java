@@ -33,19 +33,15 @@ import java.util.concurrent.TimeoutException;
 
 
 public class ConversationActivity extends AppCompatActivity {
-
     public static final String USERNAME = "username";
     public static final String EXCHANGE = "exchange";
     public static final String CONVERSATION_NAME = "conversationName";
     public static final String MESSAGE = "message";
 
-    private RecyclerView mMessageRecycler;
     private MessageListAdapter mMessageAdapter;
     private EditText editText;
-    private Button button;
     private List<Message> messageList;
     private Gson gson;
-    private MessageReciver messageReciver;
     private String username;
     private String exchange;
     private String conversationName;
@@ -57,7 +53,7 @@ public class ConversationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversation);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         gson = new Gson();
@@ -66,9 +62,9 @@ public class ConversationActivity extends AppCompatActivity {
         exchange = getIntent().getStringExtra(EXCHANGE).replaceAll("\\s+", "");
         conversationName = getIntent().getStringExtra(CONVERSATION_NAME);
 
-        mMessageRecycler = (RecyclerView) findViewById(R.id.reyclerview_message_list);
-        editText = (EditText) findViewById(R.id.edittext_chatbox);
-        button = (Button) findViewById(R.id.button_chatbox_send);
+        RecyclerView mMessageRecycler = findViewById(R.id.reyclerview_message_list);
+        editText = findViewById(R.id.edittext_chatbox);
+        Button button = findViewById(R.id.button_chatbox_send);
 
         messageList = new ArrayList<>();
         mMessageAdapter = new MessageListAdapter(messageList, username);
@@ -80,21 +76,14 @@ public class ConversationActivity extends AppCompatActivity {
             Log.i(this.getClass().getName(), "clicked send button");
             sendMessage(new Message(username, editText.getText().toString(), conversationName, getTime()));
         });
-        this.messageReciver = new MessageReciver(new Handler());
 
-        subscribe(new MessageReciver(new Handler()));
+        subscribe(new MessageReceiver(new Handler()));
     }
 
     private void sendMessage(Message message) {
         Intent intent = new Intent(this, AmqpSenderService.class);
         intent.putExtra(AmqpSenderService.MESSAGE, gson.toJson(message));
         startService(intent);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        //this.messageReciver = new MessageReciver(new Handler());
     }
 
     @Override
@@ -150,9 +139,9 @@ public class ConversationActivity extends AppCompatActivity {
     }
 
 
-    private class MessageReciver extends ResultReceiver {
+    private class MessageReceiver extends ResultReceiver {
 
-        public MessageReciver(Handler handler) {
+        public MessageReceiver(Handler handler) {
             super(handler);
         }
 

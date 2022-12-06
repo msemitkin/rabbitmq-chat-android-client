@@ -8,8 +8,7 @@ import com.github.msemitkin.chat.client.R;
 import com.github.msemitkin.chat.client.tools.model.Message;
 
 public class ReceivedMessageHolder extends RecyclerView.ViewHolder {
-
-    TextView messageText;
+    private final TextView messageText;
 
     public ReceivedMessageHolder(View itemView) {
         super(itemView);

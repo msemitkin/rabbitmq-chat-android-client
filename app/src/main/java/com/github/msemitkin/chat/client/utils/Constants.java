@@ -1,9 +1,7 @@
 package com.github.msemitkin.chat.client.utils;
 
 public class Constants {
-
     public static final int STATUS_OK = 200;
-    public static final String RESULT_RECEIVER = "receiver";
     public static final String DATA_RECEIVER = "receiver_data";
     public static final String USERNAME = "username";
 

@@ -24,14 +24,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ContactsActivity extends BaseNavigationDrawerActivity {
+    private static final String USERNAME = "username";
+    private static final String EXCHANGE = "exchange";
 
-    private ListView contactsList;
     private List<String> contacts;
     private ArrayAdapter<String> arrayAdapter;
     private ContactsReceiver contactsReceiver;
     private ConversationReceiver conversationReceiver;
-    private final String USERNAME = "username";
-    private final String EXCHANGE = "exchange";
     private String userName;
     private String exchange;
 
@@ -45,7 +44,7 @@ public class ContactsActivity extends BaseNavigationDrawerActivity {
         inflateWithLayout(R.layout.activity_contacts);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        contactsList = findViewById(R.id.contactsList);
+        ListView contactsList = findViewById(R.id.contactsList);
         contacts = new ArrayList<>();
         arrayAdapter = new ArrayAdapter<>(this, R.layout.contacts_item, R.id.contact, contacts);
         contactsList.setAdapter(arrayAdapter);

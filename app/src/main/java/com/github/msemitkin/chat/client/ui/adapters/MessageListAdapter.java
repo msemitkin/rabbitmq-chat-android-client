@@ -14,12 +14,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MessageListAdapter extends RecyclerView.Adapter {
-
     private static final int VIEW_TYPE_MESSAGE_SENT = 1;
     private static final int VIEW_TYPE_MESSAGE_RECEIVED = 2;
 
-    private List<Message> messageList = new ArrayList<>();
+    private final List<Message> messageList;
     private final String userName;
+
+    public MessageListAdapter(
+            List<Message> messageList,
+            String userName
+    ) {
+        this.messageList = messageList;
+        this.userName = userName;
+    }
 
     @Override
     public int getItemViewType(int position) {
@@ -29,14 +36,6 @@ public class MessageListAdapter extends RecyclerView.Adapter {
         } else {
             return VIEW_TYPE_MESSAGE_RECEIVED;
         }
-    }
-
-    public MessageListAdapter(
-            List<Message> messageList,
-            String userName
-    ) {
-        this.messageList = messageList;
-        this.userName = userName;
     }
 
     @Override
@@ -58,7 +57,7 @@ public class MessageListAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        Message message = (Message) messageList.get(position);
+        Message message = messageList.get(position);
 
         switch (holder.getItemViewType()) {
             case VIEW_TYPE_MESSAGE_SENT:

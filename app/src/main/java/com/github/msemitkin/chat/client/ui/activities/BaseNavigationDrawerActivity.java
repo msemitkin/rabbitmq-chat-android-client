@@ -12,28 +12,33 @@ import android.widget.FrameLayout;
 
 import com.github.msemitkin.chat.client.R;
 
-public class BaseNavigationDrawerActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class BaseNavigationDrawerActivity
+        extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    FrameLayout contentActivity;
+    protected FrameLayout contentActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base_navigation_drawer);
-        contentActivity = (FrameLayout)findViewById(R.id.contentActivity);
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        contentActivity = findViewById(R.id.contentActivity);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, null, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this,
+                drawer,
+                null,
+                R.string.navigation_drawer_open,
+                R.string.navigation_drawer_close
+        );
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -67,7 +72,7 @@ public class BaseNavigationDrawerActivity extends AppCompatActivity
         } else if (id == R.id.nav_share) {
         } else if (id == R.id.nav_send) {
         }
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

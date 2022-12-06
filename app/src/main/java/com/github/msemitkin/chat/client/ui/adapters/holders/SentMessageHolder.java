@@ -8,15 +8,14 @@ import com.github.msemitkin.chat.client.R;
 import com.github.msemitkin.chat.client.tools.model.Message;
 
 public class SentMessageHolder extends RecyclerView.ViewHolder {
-
-    TextView messageText;
+    private final TextView messageText;
 
     public SentMessageHolder(View itemView) {
         super(itemView);
         messageText = itemView.findViewById(R.id.text_message_body);
     }
 
-    public void bind(Message message){
+    public void bind(Message message) {
         messageText.setText(message.getText());
     }
 }
