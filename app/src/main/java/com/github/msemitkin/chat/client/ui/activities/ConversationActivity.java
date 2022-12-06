@@ -17,7 +17,6 @@ import android.widget.EditText;
 import com.google.gson.Gson;
 import com.github.msemitkin.chat.client.R;
 import com.github.msemitkin.chat.client.tools.model.Message;
-import com.github.msemitkin.chat.client.tools.service.AmqpListenerService;
 import com.github.msemitkin.chat.client.tools.service.AmqpSenderService;
 import com.github.msemitkin.chat.client.ui.adapters.MessageListAdapter;
 import com.github.msemitkin.chat.client.utils.Constants;
@@ -83,17 +82,8 @@ public class ConversationActivity extends AppCompatActivity {
         });
         this.messageReciver = new MessageReciver(new Handler());
 
-//        declareMessageListener();
         subscribe(new MessageReciver(new Handler()));
     }
-
-//    private void declareMessageListener() {
-//        Intent intent = new Intent(this, AmqpListenerService.class);
-//        intent.putExtra(AmqpListenerService.USERNAME, username);
-//        intent.putExtra(AmqpListenerService.EXCHANGE, exchange);
-//        intent.putExtra(Constants.DATA_RECEIVER, this.messageReciver);
-//        startService(intent);
-//    }
 
     private void sendMessage(Message message) {
         Intent intent = new Intent(this, AmqpSenderService.class);
@@ -169,7 +159,7 @@ public class ConversationActivity extends AppCompatActivity {
         @Override
         protected void onReceiveResult(int resultCode, Bundle resultData) {
             super.onReceiveResult(resultCode, resultData);
-            String message = resultData.getString(AmqpListenerService.MESSAGE);
+            String message = resultData.getString(MESSAGE);
             messageList.add(gson.fromJson(message, Message.class));
             mMessageAdapter.notifyDataSetChanged();
         }
