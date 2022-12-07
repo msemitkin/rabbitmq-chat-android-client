@@ -10,7 +10,6 @@ import android.os.ResultReceiver;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import com.github.msemitkin.chat.client.tools.model.request.GetContactsRequest;
 import com.github.msemitkin.chat.client.tools.model.response.GetContactsResponse;
 import com.github.msemitkin.chat.client.tools.rest.ApiController;
 import com.github.msemitkin.chat.client.utils.Constants;
@@ -48,7 +47,7 @@ public class ContactsService extends IntentService {
         final Bundle data = new Bundle();
         ArrayList<String> contactsList = new ArrayList<>();
         try {
-            Response<GetContactsResponse> contacts = apiController.getContacts(new GetContactsRequest(userName)).execute();
+            Response<GetContactsResponse> contacts = apiController.getContacts(userName).execute();
             contactsList.addAll(contacts.body().getContacts());
         } catch (IOException e) {
             Log.e(this.getClass().getName(), "Failed to fetch contacts", e);

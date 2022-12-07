@@ -50,7 +50,7 @@ public class ConversationService extends IntentService {
         final Bundle data = new Bundle();
         String conversationName = "";
         try {
-            Response<ConversationResponse> conversation = apiController.getConversation(new ConversationRequest(firsUser, secondUser)).execute();
+            Response<ConversationResponse> conversation = apiController.getConversation(firsUser, secondUser).execute();
             conversationName = conversation.body().getConversationName();
             if (conversationName == null || conversationName.isEmpty()) {
                 Response<ConversationResponse> newConversation = apiController.createConversation(new ConversationRequest(firsUser, secondUser)).execute();
